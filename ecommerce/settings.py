@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'store',
     'carts',
     'orders',
-    # 'jaivashop',
+    'adminpanel',
 ]
 
 MIDDLEWARE = [

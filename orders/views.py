@@ -10,9 +10,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseBadRequest, JsonResponse
 # Create your views here.
 
-def place_order(request,total=0, quantity=0):
-    # return HttpResponse('ok')
-    current_user = request.user
+# def place_order(request,total=0, quantity=0):
+#     # return HttpResponse('ok')
+#     current_user = request.user
 
 # from django.shortcuts import render, redirect
 # from django.http import HttpResponse, JsonResponse
@@ -139,7 +139,7 @@ def razorpay_check(request):
             item = CartItem.objects.get(id=cart_item.id)
             product_variation = item.variations.all()
             order_product = OrderProduct.objects.get(id=order_product.id)
-            order_product.variation.set(product_variation)
+            order_product.variations.set(product_variation)
             order_product.save()
 
             # reducing the quantity of product after selling it
@@ -156,8 +156,9 @@ def razorpay_check(request):
             'order_number': order_number,
             'tansID': payment_order.payment_id,
         }
-
-        return JsonResponse({'status': 'Your order placed successfully!', 'data': data})
+        print("completed")
+        # return render(request,'orders/order_completed.html')
+        return JsonResponse({'status': 'Your order placed successfully!','data':data})
 
 
 
@@ -223,28 +224,27 @@ def place_order(request, total=0, quantity=0,):
         return redirect('checkout')
 
 
-# def order_complete(request):
-#     order_number = request.GET.get('order_number')
-#     transID = request.GET.get('payment_id')
+@login_required(login_url='login')
+def order_completed(request):
+    order_number = request.GET.get('order_number')
+    print(order_number)
 
-#     try:
-#         order = Order.objects.get(order_number=order_number, is_ordered=True)
-#         ordered_products = OrderProduct.objects.filter(order_id=order.id)
+    try:
+        order = Order.objects.get(order_number=order_number)
+        order.status = 'Accepted'
+        order.save()
+        ordered_products = OrderProduct.objects.filter(order_id=order.id)
+        subtotal = 0
 
-#         subtotal = 0
-#         for i in ordered_products:
-#             subtotal += i.product_price * i.quantity
+        for item in ordered_products:
+            subtotal += (item.product_price * item.quantity)
 
-#         payment = Payment.objects.get(payment_id=transID)
-
-#         context = {
-#             'order': order,
-#             'ordered_products': ordered_products,
-#             'order_number': order.order_number,
-#             'transID': payment.payment_id,
-#             'payment': payment,
-#             'subtotal': subtotal,
-#         }
-#         return render(request, 'orders/order_complete.html', context)
-#     except (Payment.DoesNotExist, Order.DoesNotExist):
-#         return redirect('home')
+        context = {
+            'order': order,
+            'ordered_products': ordered_products,
+            'order_number': order_number,
+            'sub_total': subtotal
+        }
+        return render(request, 'orders/order_complete.html', context)
+    except (Payment.DoesNotExist, Order.DoesNotExist):
+        return redirect('home')

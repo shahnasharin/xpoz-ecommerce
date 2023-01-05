@@ -50,8 +50,8 @@ def login(request):
 
         if user is not None:
             auth.login(request,user)
-            # messages.success(request,'you are now logged in.')
-            return redirect('home')
+            messages.success(request,'you are now logged in.')
+            return redirect('dashboard')
         else:
             messages.error(request, 'Invalid login credentials')
             return redirect('login')
@@ -120,3 +120,7 @@ def resetPassword(request):
             return redirect('resetPassword')
     else:
         return render(request, 'accounts/resetPassword.html')
+
+@login_required(login_url = 'login')
+def dashboard(request):
+    return render(request,'accounts/dashboard.html')

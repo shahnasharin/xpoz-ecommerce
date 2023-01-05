@@ -19,10 +19,14 @@
     <div class="row">
         <aside class="col-lg-9">
             <input type="hidden" class="order_number" order_number="{{order.order_number}}">
+            <input type="hidden" name="first_name" value="{{order.first_name}}">
+            <input type="hidden" name="last_name" value="{{order.last_name}}">
+            <input type="hidden" name="email" value="{{order.email}}">
+            <input type="hidden" name="phone" value="{{order.phone}}">
             <div class="card">
                 <h5 class="card-header">Billing Address</h5>
                 <div class="card-body">
-                 
+                {% csrf_token %}
                     <p class="card-text mb-0">{{order.full_name}} </p>
                     <p class="card-text mb-0">{{order.full_address}} </p>
                     <p class="card-text mb-0">{{order.email}} </p>
@@ -177,17 +181,18 @@
 
     </div> <!-- row.// -->
 
+
     <!-- ============================ COMPONENT 1 END .// ================================= -->
 
     </div> <!-- container .//  -->
     </section>
 <script>
     $(document).ready(function () {
-    $('.payWithRazorpay').click(function (e) { 
+    $('.payWithRazorpay').click(function (e) {
         e.preventDefault();
 
 
-        
+
         var first_name = $("[name='first_name']").val();
         var last_name = $("[name='last_name']").val();
         var email = $("[name='email']").val();
@@ -201,8 +206,8 @@
         console.log(token)
         var order_number = $('.order_number').attr('order_number');
         var grand_total = $('.grand_total').attr('grand-total');
-        
-        console.log(grand_total)
+
+        console.log(first_name)
         console.log(order_number)
 
         // if(first_name == "" || last_name == "" || email == "" || phone == "" || address == "" || city == "" || state == "" || country == "" || order_note == "")
@@ -211,9 +216,9 @@
         //     console.log('all fields are mandatory')
         //     return false;
         // }else
-        
-            
-                   
+
+
+
             var options = {
                 "key": "rzp_test_D90RdJ2N6Jyq07", // Enter the Key ID generated from the Dashboard
                 "amount": 1 * 100 ,//response.total_price * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -223,7 +228,7 @@
                 "image": "https://example.com/your_logo",
                 // "order_id": "order_IluGWxBm9U8zJ8", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
                 "handler": function (responseb){
-                    // alert(responseb.razorpay_payment_id);
+                   // alert(responseb.razorpay_payment_id);
                     // alert(response.razorpay_order_id);
                     // alert(response.razorpay_signature)
                     data = {
@@ -231,23 +236,23 @@
                         'payment_id':responseb.razorpay_payment_id,
                         'order_no':order_number,
                         'grand_total':grand_total,
-                        csrfmiddlewaretoken: token 
+                        csrfmiddlewaretoken: token
                     }
                     $.ajax({
                         method: "POST",
                         url: "/orders/proceed-to-pay/",
                         data: data,
                         success: function (responsec) {
-                            swal.fire(
+                            swal(
                                 'Congratulations!',
                                 responsec.status,
                                 'success'
                             ).then((value) => {
-
+                                console.log(order_number)
                                 window.location.href = '/orders/order-completed'+'?order_number='+order_number
                                 console.log(order_number)
                             });
-                                
+
                         }
                     });
                 },
@@ -262,21 +267,21 @@
             };
             var rzp1 = new Razorpay(options);
             rzp1.open();
-                
-            
-            
-        
-         
-        
+
+
+
+
+
+
     });
     //END OF RAZORPAY
 
     //CASH ON DELIVERY
-    $('.cod').click(function (e) { 
+    $('.cod').click(function (e) {
         e.preventDefault();
 
 
-        
+
         // var first_name = $("[name='first_name']").val();
         // var last_name = $("[name='last_name']").val();
         // var email = $("[name='email']").val();
@@ -290,7 +295,7 @@
         console.log(token)
         var order_number = $('.order_number').attr('order_number');
         var grand_total = $('.grand_total').attr('grand-total');
-        
+
         console.log(grand_total)
         console.log(order_number)
 
@@ -300,15 +305,15 @@
         //     console.log('all fields are mandatory')
         //     return false;
         // }else
-        
-            
-                   
+
+
+
         data = {
             'payment_mode':'Cash On Delivery',
             // 'payment_id':responseb.razorpay_payment_id,
             'order_no':order_number,
             'grand_total':grand_total,
-            csrfmiddlewaretoken: token 
+            csrfmiddlewaretoken: token
         }
         $.ajax({
             method: "POST",
@@ -324,15 +329,15 @@
                     window.location.href = '/orders/order-completed'+'?order_number='+order_number
                     console.log(order_number)
                 });
-                    
+
             }
         });
-                
-            
-            
-        
-         
-        
+
+
+
+
+
+
     });
 
 
@@ -354,10 +359,10 @@
             success: function (res) {
                 console.log(res);
                 if (res.msg=='Coupon is Applied') {
-                    swal.fire("Congratulations ! ", res.msg, "success")
+                    swal("Congratulations ! ", res.msg, "success")
                     $('#payment_render').html(res.data);
                 } else{
-                    swal.fire({
+                    swal({
                         icon:'error',
                         title:'Sorry',
                         text: res.msg,
@@ -367,7 +372,7 @@
             }
         });
         //End Ajax
-        
+
     });
     //End coupon
 });
