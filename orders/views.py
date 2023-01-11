@@ -160,13 +160,16 @@ def razorpay_check(request):
         # return render(request,'orders/order_completed.html')
         return JsonResponse({'status': 'Your order placed successfully!','data':data})
 
-
-
+from carts.views import _cart_id
+from carts.models import Cart
 def place_order(request, total=0, quantity=0,):
     current_user = request.user
-
+    cart_id= _cart_id(request)
+    cart = Cart.objects.get(cart_id=cart_id)
+    print(cart)
     # If the cart count is less than or equal to 0, then redirect back to shop
-    cart_items = CartItem.objects.filter(user=current_user)
+    cart_items = CartItem.objects.filter(cart=cart)
+    print(cart_items)
     cart_count = cart_items.count()
     # if cart_count <= 0:
     #     return redirect('store')
@@ -176,6 +179,7 @@ def place_order(request, total=0, quantity=0,):
     for cart_item in cart_items:
         total += (cart_item.product.price * cart_item.quantity)
         quantity += cart_item.quantity
+    print(total)
     tax = (2 * total)/100
     grand_total = total + tax
 
@@ -223,7 +227,6 @@ def place_order(request, total=0, quantity=0,):
     else:
         return redirect('checkout')
 
-
 @login_required(login_url='login')
 def order_completed(request):
     order_number = request.GET.get('order_number')
@@ -248,3 +251,6 @@ def order_completed(request):
         return render(request, 'orders/order_complete.html', context)
     except (Payment.DoesNotExist, Order.DoesNotExist):
         return redirect('home')
+        
+
+    

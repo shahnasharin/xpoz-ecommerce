@@ -30,7 +30,7 @@ urlpatterns = [
 
 
     path('orders/',include('orders.urls')),
-    # path('adminpanel/',include('adminpanel.urls')),
+    path('adminpanel/',include('adminpanel.urls')),
     #  path('proceed-to-pay',checkout.razorpaycheck)
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

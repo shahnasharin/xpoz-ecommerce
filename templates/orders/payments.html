@@ -169,7 +169,7 @@
                 
                     {% comment %} <button class="btn btn-dark mt-3 me-2 px-5 fw-bold " type="submit" id="rzp_button1">COD</button> {% endcomment %}
                       <!-- PayPal Button Will Load -->
-                      <button class="btn btn-success btn-block cod" type="button" id="rzp_button1">COD</button>
+                      <button class="btn btn-success btn-block cod" type="button" id="cod">COD</button>
                       <button class="btn btn-primary payWithRazorpay btn-block" type="button" id="rzp_button1"> RazorPay </button>
             
            
@@ -277,7 +277,7 @@
     //END OF RAZORPAY
 
     //CASH ON DELIVERY
-    $('.cod').click(function (e) {
+    $('#cod').click(function (e) {
         e.preventDefault();
 
 
@@ -292,12 +292,12 @@
         // var country = $("[name='country']").val();
         // var order_note = $("[name='order_note']").val();
         var token = $("[name='csrfmiddlewaretoken']").val();
-        console.log(token)
+        console.log(token+"hiiiiiiiiiiiiiiii")
         var order_number = $('.order_number').attr('order_number');
         var grand_total = $('.grand_total').attr('grand-total');
 
-        console.log(grand_total)
-        console.log(order_number)
+        console.log(grand_total+'banna')
+        console.log(order_number+'order done')
 
         // if(first_name == "" || last_name == "" || email == "" || phone == "" || address == "" || city == "" || state == "" || country == "" || order_note == "")
         // {
@@ -319,9 +319,9 @@
             method: "POST",
             url: "/orders/proceed-to-pay/",
             data: data,
-            success: function (responsec) {
+            success: function (response) {
                 swal.fire(
-                    responsec.status,
+                    response.status,
                     'Congratulations!',
                     'success'
                 ).then((value) => {
