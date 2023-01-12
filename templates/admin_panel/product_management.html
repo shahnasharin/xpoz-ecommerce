@@ -1,0 +1,107 @@
+{% extends 'base.html' %} 
+{% block title %} Product Management {% endblock title %}
+{% block content %}
+{% comment %} {% include 'include/navbarwhite.html' %} {% endcomment %}
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y bg">
+  <div class="container mt-5 mb-5">
+
+    <h1 class="text-center h2 mb-4">Manage Products</h1>
+    <div class= "d-flex mb-3 justify-content-end">
+      
+    </div>
+    <div class="row">
+        {% include 'includes/admin_dashboard_sidebar.html' %}
+      
+      <main class="col-md-9">
+        <div class="row d-flex justify-content-end">
+          
+            <form action="" class="search" method="POST" class= " d-flex justify-content-center">
+              {% csrf_token %}
+              <div class="mr-5">
+                <div class="input-group w-75 mr-5">
+                  <input type="text" id="form1" class="form-control" placeholder = "search" name = "key" />
+                  
+                <button class="btn btn-gray-light mb-3" type="submit">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+              </div>
+            </form>
+          
+            <a href="{% url 'add_product' %}" class="btn btn-secondary mb-2  ">Add Product</a>
+          </div> 
+        <div class="wrap-table-shopping-cart">
+        <table class="table table-gray-light">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Category</th>
+              <th scope="col">Price</th>
+              <th scope="col">Stock</th>
+              <th scope="col">Available</th>
+              <th scope="col">Featured</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in products %}
+            <tr>
+              <th scope="row">{{ product.id }}</th>
+              <td><a href="{% url 'edit_product' product.id %}"  class="text-dark">{{ product.product_name }}</a></td>
+              <td>{{ product.category }}</td>
+              <td>{{ product.price }}</td>
+              <td>{{ product.stock }}</td>
+              <td>
+                {% if product.is_available %}
+                <i class="fas fa-check-circle" style="color: #28a745"></i>
+                {% else %}
+                <i class="fas fa-times-circle" style="color: #c21010"></i>
+                {% endif %}
+              </td>
+              <td>
+                {% if product.is_featured %}
+                <i class="fas fa-check-circle" style="color: #28a745"></i>
+                {% else %}
+                <i class="fas fa-times-circle" style="color: #c21010"></i>
+                {% endif %}
+              </td>
+              <td><a href="{% url 'delete_product' product.id %}" class="btn btn-sm btn-danger">Delete</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+        <!-- order-group.// -->
+        <div class="container" >
+          <nav class="mt-4" aria-label="Page navigation sample">
+            {% if products.has_other_pages %}
+            <ul class="pagination">
+              {% if products.has_previous %}
+              <li class="page-item"><a class="page-link text-dark" href="?page={{ products.previous_page_number }}">Previous</a></li>
+              {% else %}
+              <li class="page-item disabled"><a class="page-link text-dark" href="#">Previous</a></li>
+              {% endif %} {% for page_number in products.paginator.page_range %} {% if products.number == page_number %}
+              <li class="page-item active"><a class="page-link bg-dark" style="border: none;" href="#">{{ page_number }}</a></li>
+              {% else %}
+              <li class="page-item"><a class="page-link text-dark" href="?page={{ page_number }}">{{ page_number }}</a></li>
+              {% endif %} {% endfor %} {% if products.has_next %}
+              <li class="page-item"><a class="page-link text-dark" href="?page={{ products.next_page_number }}">Next</a></li>
+              {% else %}
+              <li class="page-item disabled"><a class="page-link text-dark" href="#">Next</a></li>
+              {% endif %}
+            </ul>
+            {% endif %}
+          </nav>
+      </main>
+    </div>
+    <!-- row.// -->
+  </div>
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock content %}

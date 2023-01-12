@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %} Category {% endblock title %}
+{% block content %}
+{% comment %} {% include 'include/navbarwhite.html' %} {% endcomment %}
+
+
+    
+    
+    
+    
+    <!-- ========================= SECTION CONTENT ========================= -->
+    <section class="section-conten mt-3 bg">
+      <div class="container mt-5 mb-5">
+        <h2 class="text-center mb-5">Manage Category</h2>
+        <div class="d-flex mb-3 justify-content-end">
+          <form action="{% url 'category_management' %}" class="search" method="POST">
+            {% csrf_token %} 
+            <div class="input-group w-100">
+              <input type="text" class="form-control" style="width: 60%" placeholder="Search" name="keyword" />
+    
+              <div class="input-group-append">
+                <button class="btn btn-gray-light" type="submit">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+          <div>
+            <a href="{% url 'add_category' %}" class="btn btn-secondary ml-4">Add</a>
+          </div>
+        </div>
+        <div class="row">
+          {% include 'includes/admin_dashboard_sidebar.html' %}
+        
+            <main class="col-md-9 "> 
+              <div class="wrap-table-shopping-cart">
+                <table class="table table-gray-light">
+                    <thead>
+                      <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Category Name</th>
+                        <th scope="col">Category Slug</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
+                        
+                        
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories %}
+                        <tr>
+                          <th scope="row">{{ category.id }}</th>
+                          <td>{{ category.category_name }}</td>
+                          <td>{{ category.slug }}</td>
+                          <td><a href="{% url 'update_category' category.id %}" class= "btn-sm btn-info">Update</a></td>
+                          <td><a href="{% url 'delete_category' category.id %}" class= "btn-sm btn-danger">Delete</a></td>
+                          <td>
+                           
+                          </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                  </table>
+                  <div class="container">
+                    <div class="row">
+                      <aside class="col-md-3"></aside>
+                      <main class="col-md-9">
+                        <nav class="mt-4" aria-label="Page navigation sample">
+                          {% if categories.has_other_pages %}
+                          <ul class="pagination">
+                            {% if categories.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{ categories.previous_page_number }}">Previous</a></li>
+                            {% else %}
+                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                            {% endif %} {% for page_number in categories.paginator.page_range %} {% if categories.number == page_number %}
+                            <li class="page-item active"><a class="page-link" href="#">{{ page_number }}</a></li>
+                            {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a></li>
+                            {% endif %} {% endfor %} {% if categories.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ categories.next_page_number }}">Next</a></li>
+                            {% else %}
+                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                            {% endif %}
+                          </ul>
+                          {% endif %}
+                        </nav>
+                      </main>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+        </main>
+    </div> <!-- row.// -->
+    </div>
+    
+    
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock content %}

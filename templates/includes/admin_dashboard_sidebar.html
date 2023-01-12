@@ -1,0 +1,44 @@
+<aside class="d-none d-md-block col-md-3 text-center">
+    <!--   SIDEBAR   -->
+    <ul class="list-group ">
+        <a class="list-group-item {% if '/admin_panel/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href="{% url 'admin_dashboard' %}"> Dashboard </a>
+        <a class="list-group-item {% if '/user_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href="{% url 'user_management' %}"> User Management </a>
+        <a class="list-group-item {% if '/category_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href="{% url 'category_management' %}"> Category Management </a>
+        <a class="list-group-item {% if '/product_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href="{% url 'product_management' %}"> Product Management </a>
+        <a class="list-group-item {% if '/variation_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href="{% url 'variation_management' %}"> Variation Management </a>
+        {% comment %} <a class="list-group-item {% if '/author_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href="{% url 'author_management' %}"> Author Management </a> {% endcomment %}
+        <a class="list-group-item {% if '/order_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href="{% url 'order_management' %}"> Order Management </a>
+        <a class="list-group-item {% if '/admin_orders/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href="{% url 'admin_orders' %}"> My Orders </a>
+        {% comment %} <a class="list-group-item {% if '/review_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Review Management </a> {% endcomment %}
+        {% comment %} <a class="list-group-item {% if '/coupon_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Coupon Management </a> {% endcomment %}
+        <a class="list-group-item {% if '/admin_change_password/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-3 " href="{% url 'admin_change_password' %}"> Change Password </a>
+        
+    </ul>
+    
+    <a class="btn btn-primary btn-block  card  mb-1" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span class="text">Log out</span> </a> 
+    <!--   SIDEBAR .//END   -->
+</aside>
+
+
+{% comment %} header mobile {% endcomment %}
+
+    <div class="dropdown show  d-show d-md-none col-10">
+        <a class="btn btn-dark dropdown-toggle btn-block col-12 mb-3" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Admin Panel
+        </a>
+      
+        <div class="dropdown-menu " aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item {% if '/admin_panel/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Dashboard </a>
+            <a class="dropdown-item {% if '/user_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> User Management </a>
+            <a class="dropdown-item {% if '/category_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Category Management </a>
+            <a class="dropdown-item {% if '/product_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Product Management </a>
+            <a class="dropdown-item {% if '/variation_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Variation Management </a>
+            <a class="dropdown-item {% if '/author_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Author Management </a>
+            <a class="dropdown-item {% if '/order_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Order Management </a>
+            <a class="dropdown-item {% if '/admin_orders/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> My Orders </a>
+            <a class="dropdown-item {% if '/review_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Review Management </a>
+            {% comment %} <a class="dropdown-item {% if '/coupon_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Coupon Management </a> {% endcomment %}
+            {% comment %} <a class="dropdown-item {% if '/admin_change_password/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-3 " href=""> Change Password </a> {% endcomment %}
+            <a class="btn btn-danger btn-block  card  mb-1" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span class="text">Log out</span> </a> 
+        </div>
+      </div>

@@ -1,0 +1,42 @@
+{% extends 'base.html' %} 
+{% block title %} Update Variation {% endblock title %}
+{% block content %}
+{% comment %} {% include 'include/navbarwhite.html' %} {% endcomment %}
+
+
+<section class="section-content padding-y bg" >
+  <div class="container mt-5 mb-5 ">
+    <div class="row d-flex justify-content-center ">
+      <div class="col-8 card p-5">
+        <h1 class="text-center h2 mb-5">Edit Variation</h1>
+        <form action="{% url 'update_variation' variation.id %}" method="POST">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="id_name">Product Name</label>
+              {{ form.product }}
+            </div>
+            <div class="form-group col-md-6">
+              <label for="product_slug">Variation Category</label>
+              {{ form.variation_category }}
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="product_price">Variation Value</label>
+              {{ form.variation_values }}
+            </div>
+            <div class="form-group col-md-6">
+              <label for="id_is_available">Active</label>
+              {{ form.is_active }}
+            </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-success ">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
