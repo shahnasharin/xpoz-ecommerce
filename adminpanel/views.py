@@ -9,7 +9,7 @@ from orders.models import *
 from store.models import *
 from accounts.models import Account
 from category.models import category
-from store.models import Variation,Author
+from store.models import Variation
 from .forms import ProductForm, VariationForm
 
 def admin_dashboard(request):

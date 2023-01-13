@@ -4,6 +4,7 @@ from category.models import category
 from django.db.models import Q
 from carts.views import CartItem
 
+
 from carts.views import _cart_id
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 # Create your views here.
@@ -63,6 +64,11 @@ def search(request):
         'Product_count': product_count,
     }
     return render(request, 'store/store.html', context)
+
+
+
+
+
 
     
 

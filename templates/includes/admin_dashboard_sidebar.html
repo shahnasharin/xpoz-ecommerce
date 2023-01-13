@@ -33,12 +33,12 @@
             <a class="dropdown-item {% if '/category_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Category Management </a>
             <a class="dropdown-item {% if '/product_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Product Management </a>
             <a class="dropdown-item {% if '/variation_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Variation Management </a>
-            <a class="dropdown-item {% if '/author_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Author Management </a>
+            {% comment %} <a class="dropdown-item {% if '/author_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Author Management </a> {% endcomment %}
             <a class="dropdown-item {% if '/order_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Order Management </a>
             <a class="dropdown-item {% if '/admin_orders/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> My Orders </a>
-            <a class="dropdown-item {% if '/review_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Review Management </a>
+            {% comment %} <a class="dropdown-item {% if '/review_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Review Management </a> {% endcomment %}
             {% comment %} <a class="dropdown-item {% if '/coupon_management/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-1 " href=""> Coupon Management </a> {% endcomment %}
-            {% comment %} <a class="dropdown-item {% if '/admin_change_password/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-3 " href=""> Change Password </a> {% endcomment %}
+            <a class="dropdown-item {% if '/admin_change_password/' in request.path %} bg-light text-dark {% else %} bg-dark text-white {% endif %} card  mb-3 " href=""> Change Password </a>
             <a class="btn btn-danger btn-block  card  mb-1" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span class="text">Log out</span> </a> 
         </div>
       </div>
