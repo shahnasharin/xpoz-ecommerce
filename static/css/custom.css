@@ -1,3 +1,4 @@
+/* Hide Radio button */
 .rate > input{
   display: none;
 }
@@ -27,4 +28,34 @@
   content: "\f089";
   position: absolute;
   padding-right: 0;
+}
+
+/* Click and hover */
+input:checked ~ label, label:hover ~ label{
+  color: #ffb503;
+}
+
+/* hover hightlight */
+input:checked + label:hover, input:checked ~ label:hover,input:checked ~ label:hover ~ label,
+label:hover ~ input:checked ~ label{
+  color: #cc9000;
+}
+
+.rating-star i{
+  color: #ffb503 !important;
+}
+
+ul.thumb{
+  margin:0 auto;
+  padding: 0;
+  float: left;
+}
+ul.thumb li{
+  list-style: none;
+  margin: 10px;
+}
+ul.thumb li img{
+  width: 80px;
+  height: 80px;
+  border: 1px solid grey;
 }

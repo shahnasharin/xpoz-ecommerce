@@ -15,6 +15,12 @@
               <label for="id_product_name ">Product Name</label>
               {{ form.product_name }}
             </div>
+
+            
+              <div class="form-group col-md-6 ">
+                <label for="id_product_name ">product slug</label>
+                {{ form.slug }}
+              </div>
             
           </div>
           <div class="form-row">
@@ -30,10 +36,7 @@
               <label for="product_stock">Product Stock</label>
               {{ form.stock }}
             </div>
-            <div class="form-group col-md-6">
-              <label for="product_stock">Author</label>
-              {{ form.author }}
-            </div>
+  
             <div class="form-group col-md-6">
               <label for="product_category">Category</label>
               {{ form.category }}

@@ -91,59 +91,6 @@
                  
                 </div>
               </div>
-    {% comment %} <div class="card"> {% endcomment %}
-    {% comment %} <table class="table table-borderless table-shopping-cart">
-    <thead class="text-muted">
-    <tr class="small text-uppercase">
-      <th scope="col">Product</th>
-      <th scope="col" width="120">Quantity</th>
-      <th scope="col" width="120">Price</th>
-      <th scope="col" class="text-right" width="200"> </th>
-    </tr>
-    </thead>
-    <tbody>
-
-    {% for cart_item in cart_items %}
-    <tr>
-        <td>
-            <figure class="itemside align-items-center">
-                <div class="aside"><img src="{{ cart_item.product.images.url }}" class="img-sm"></div>
-                <figcaption class="info">
-                    <a href="{{ cart_item.product.get_url }}" class="title text-dark">{{ cart_item.product.product_name }}</a>
-                    <p class="text-muted small">Color: 25 Mpx <br> Size: Canon</p>
-                </figcaption>
-            </figure>
-        </td>
-        <td>
-            <!-- col.// -->
-                        <div class="col">
-                            <div class="input-group input-spinner">
-                                <div class="input-group-prepend">
-                                <a href="{% url 'remove_cart' cart_item.product.id %}" class="btn btn-light" type="button" id="button-plus"> <i class="fa fa-minus"></i> </a>
-                                </div>
-                                <input type="text" class="form-control"  value="{{ cart_item.quantity }}">
-                                <div class="input-group-append">
-                                <a href ="{% url 'add_cart' cart_item.product.id %}"class="btn btn-light" type="button" id="button-minus"> <i class="fa fa-plus"></i> </a>
-                                </div>
-                            </div> <!-- input-group.// -->
-                        </div> <!-- col.// -->
-        </td>
-        <td>
-            <div class="price-wrap">
-                <var class="price">${{ cart_item.sub_total }}</var>
-                <small class="text-muted"> ${{ cart_item.product.price }} each </small>
-            </div> <!-- price-wrap .// -->
-        </td>
-        <td class="text-right">
-        <a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn btn-danger"> Remove</a>
-        </td>
-    </tr>
-    {% endfor %}
-
-
-    </tbody>
-    </table> {% endcomment %}
-    {% comment %} </div> <!-- card.// --> {% endcomment %}
 
         </aside> <!-- col.// -->
         <aside class="col-lg-3">
@@ -169,7 +116,7 @@
                 
                     {% comment %} <button class="btn btn-dark mt-3 me-2 px-5 fw-bold " type="submit" id="rzp_button1">COD</button> {% endcomment %}
                       <!-- PayPal Button Will Load -->
-                      <button class="btn btn-success btn-block cod" type="button" id="cod">COD</button>
+                      <button class="btn btn-success btn-block cod" type="button" id="rzp_button1">COD</button>
                       <button class="btn btn-primary payWithRazorpay btn-block" type="button" id="rzp_button1"> RazorPay </button>
             
            
@@ -220,8 +167,8 @@
 
 
             var options = {
-                "key": "rzp_test_D90RdJ2N6Jyq07", // Enter the Key ID generated from the Dashboard
-                "amount": 1 * 100 ,//response.total_price * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "key": "rzp_test_Zz2FeEiTqE21AG", // Enter the Key ID generated from the Dashboard
+                "amount": grand_total * 100 ,//response.total_price * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
                 "currency": "INR",
                 "name": "Booksy",
                 "description": "Thank you for buying from us",
@@ -277,7 +224,7 @@
     //END OF RAZORPAY
 
     //CASH ON DELIVERY
-    $('#cod').click(function (e) {
+    $('.cod').click(function (e) {
         e.preventDefault();
 
 
@@ -319,8 +266,10 @@
             method: "POST",
             url: "/orders/proceed-to-pay/",
             data: data,
+
             success: function (response) {
-                swal.fire(
+                console.log('success')
+                swal(
                     response.status,
                     'Congratulations!',
                     'success'

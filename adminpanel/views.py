@@ -130,8 +130,9 @@ def edit_product(request, product_id):
             form = ProductForm(request.POST, request.FILES, instance=product)
             if form.is_valid():
                 form.save()
-
+               
                 return redirect('product_management')
+            
 
         except Exception as e:
             raise e
@@ -238,7 +239,7 @@ def add_category(request):
             categories = category(
                 category_name=category_name,
                 slug=category_slug,
-                description=category_description
+                desciption=category_description
             )
 
             categories.save()
@@ -376,27 +377,6 @@ def admin_order(request):
     }
     return render(request, 'admin_panel/admin_order.html', context)
 
-# ADMIN AUTHOR MANGEMENT
-# @login_required(login_url='signin')
-# @user_passes_test(lambda u: u.is_admin, login_url='home')
-# def author_management(request):
-#     if request.method == 'POST':
-#         keyword = request.POST['keyword']
-#         authors = Author.objects.filter(name__icontains=keyword).order_by('id')
-
-#     else:
-#         authors = Author.objects.all().order_by('id')
-
-#     paginator = Paginator(authors, 4)
-#     page = request.GET.get('page')
-#     paged_authors = paginator.get_page(page)
-
-#     context = {
-#         'authors': paged_authors
-#     }
-#     return render(request, 'admin_panel/author_management.html', context)
-
-#ADMIN CHANGE PASSWORD
 @login_required(login_url='login')
 @user_passes_test(lambda u: u.is_admin, login_url='home')
 def admin_change_password(request):

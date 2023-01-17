@@ -6,13 +6,13 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ['product_name', 'description', 'price', 'images',
-                  'author', 'category', 'stock', 'is_available']
+        fields = ['product_name', 'slug', 'description', 'price', 'images', 'stock', 'is_available', 'category', ]
 
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
 
         for field in self.fields:
+            
             self.fields[field].widget.attrs['class'] = 'form-control'
 
         self.fields['is_available'].widget.attrs['class'] = 'ml-2 mt-1 form-check-input'
@@ -33,6 +33,7 @@ class VariationForm(forms.ModelForm):
             self.fields[field].widget.attrs['class'] = 'form-control'
 
         self.fields['is_active'].widget.attrs['class'] = 'ml-2 mt-1 form-check-input'
+        
 
 
 # class AuthorForm(forms.ModelForm):
