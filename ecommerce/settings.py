@@ -126,13 +126,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-# STATIC_ROOT = BASE_DIR / 'static'
 
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-   
+    os.path.join(BASE_DIR, 'static/')
 ]
+
+# STATIC_URL = 'static/'
+
+
+# STATICFILES_DIRS = [
+   
+#    STATIC_ROOT = BASE_DIR / 'static'
+   
+# ]
+ # os.path.join(BASE_DIR, 'static'),
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR /'media'
@@ -142,30 +152,14 @@ MEDIA_ROOT = BASE_DIR /'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-
-# from django.contrib.messages import constants as messages
-# MESSAGE_TAGS = {
-#     messages.ERROR: 'danger',
-# }
-
-# SMTP configuration
+# Authentication 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'shahnasharinpp@gmail.com'
 EMAIL_HOST_PASSWORD = 'borljdbnzrwwoiyi'
 EMAIL_USE_TLS = True
 
-# razor_pay_key_id ='rzp_test_OYxMnxqrleUOqD'
-# key_secret= 'OutlPBednHMXxSP1oVlFQHEx'
-
+# Razorpay
 RAZOR_KEY_ID = 'rzp_test_OYxMnxqrleUOqD'
 RAZOR_KEY_SECRET = 'OutlPBednHMXxSP1oVlFQHEx'
 
-# RAZOR_KEY_ID = os.environ.get('RAZOR_KEY_ID')
-# RAZOR_KEY_SECRET = os.environ.get('RAZOR_KEY_SECRET')
-# SECURE_CROSS_ORIGIN_OPENER_POLICY= os.environ.get('SECURE_CROSS_ORIGIN_OPENER_POLICY')
-
-#News API conf
-
-# API_KEY = os.environ.get('API_KEY')

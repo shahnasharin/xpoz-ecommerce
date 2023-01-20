@@ -24,7 +24,7 @@ class VariationForm(forms.ModelForm):
     class Meta:
         model = Variation
         fields = ['product', 'variation_category',
-                  'variation_values', 'is_active']
+                  'variation_value', 'is_active']
 
     def __init__(self, *args, **kwargs):
         super(VariationForm, self).__init__(*args, **kwargs)

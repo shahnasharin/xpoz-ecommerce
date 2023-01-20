@@ -1,22 +1,23 @@
 {% extends 'base.html' %}
-
-
+{% load static  %}
+{% block title %} Orders {% endblock title %}
 {% block content %}
+
 
 <section class="section-conten padding-y bg">
 
 {% include 'includes/alerts.html' %}
-<div class="container">
+<div class="container card mb-3 ">
 	<div class="row">
 	{% include 'includes/dashboard_sidebar.html' %}
-	<main class="col-md-9">
-		<article class="card">
+	<main class="col-md-9 mt-5">
+		<article class="mb-3">
 		<header class="card-header">
 			<strong class="d-inline-block mr-3">Your order history</strong>
 
 		</header>
 		<div class="card-body">
-			<div class="row">
+			<div class="row ">
 			<div class="col-md-12">
 				<table class="table table-hover">
 				  <thead>
@@ -25,17 +26,29 @@
 				      <th scope="col">Billing Name</th>
 				      <th scope="col">Phone</th>
 				      <th scope="col">Order Total</th>
-							<th scope="col">Date</th>
+					  <th scope="col">Date</th>
+					  <th scope="col">Status</th>
+					  <th scope="col"></th>
 				    </tr>
 				  </thead>
 				  <tbody>
 						{% for order in orders %}
 				    <tr>
+						
 				      <th scope="row"><a href="{% url 'order_detail' order.order_number %}">{{order.order_number}}</a></th>
-				      <td>{{order.full_name}}</td>
+					  <td>{{order.full_name}}</td>
 				      <td>{{order.phone}}</td>
-				      <td>${{order.order_total}}</td>
-							<td>{{order.created_at}}</td>
+				      <td>₹ {{order.order_total}}</td>
+					  <td>{{order.created_at}}</td>
+					  <td>{{order.status}}</td>
+					  <td>{% if order.status == 'Cancelled' %}
+						<button class="btn btn-info disabled">Cancelled</button>
+						{% else %}
+						<a href="{% url 'cancel_order_user' order.order_number %}" class="btn btn-danger">Cancel</a>
+					
+						{% endif %}
+					  </td>
+
 				    </tr>
 				{% endfor %}
 
